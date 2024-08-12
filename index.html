@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background:linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background:linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .animated header{
+            width: 100px;
+            height: 100px;
+            background-size: 400% 400%;
+            animation: move-backgrond 10s ease infinite;
+            
+        }
+        @keyframes move-background{
+            0%{
+                background-position: 0% 50%;
+                
+            }
+        50%{
+            background-position: 100% 50%;
+
+        }
+        100%{
+            background-position: 0% 50%;
+
+        }
+         
+            
+            
+        }
+        .animated-header{
+            background-image: linear-gradient(to right, blue, black);
+        }
+    </style>
+</head>
+<body>
+    <header class="animated header">
+        <h1>Welcome to 14SPACES</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Earn Money by Viewing Advertisements</h2>
+            <p>Explore opportunities to earn money by viewing and interacting with ads.</p>
+            <a href="login.html">Get Started</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AdView. All rights reserved.</p>
+    </footer>
+</body>
+</html>

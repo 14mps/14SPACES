@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FF0099;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background: linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            /* position: fixed; */
+            bottom: 0;
+            width: 100%;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e3e4f6;
+            border-radius: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .loading-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #e3e4f6;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+            position: relative;
+        }
+        .loading-bar span {
+            display: block;
+            height: 100%;
+            background-color: #00ff26;
+            width: 0%;
+            transition: width 2s;
+        }
+        .success-message {
+            color: rgb(0, 254, 8);
+            font-weight: bold;
+        }
+        .error-message {
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Withdrawal Page</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+               
+                <li><a href="withdrawal.html">Withdrawal</a></li>
+               
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <main>
+            <section>
+                <h2>Withdrawal Options</h2>
+                <img src="d.jpg" alt="Withdrawal Options">
+                <form id="withdrawal-form">
+                    <h2>Select Withdrawal Method</h2>
+                    <label for="withdrawalMethod">Choose a withdrawal method:</label>
+                    <select name="withdrawalMethod" id="withdrawalMethod">
+                        <option value="mobilemoney">Mobile Money</option>
+                        <option value="centralbank">Central Bank</option>
+                        <option value="equitebank">EQUITEBANK</option>
+                    </select>
+                    <br><br>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    
+                    <label for="telephone">Telephone no.:</label>
+                    <input type="tel" id="telephone" name="telephone" required><br><br>
+                    
+                    <label for="code">Enter 6-Digit Code:</label>
+                    <input type="number" id="code" name="code" min="100000" max="999999" required><br><br>
+                    
+                    <button type="submit">Withdrawal Now</button>
+                </form>
+                <div id="loading-container" style="display: none;">
+                    <div class="loading-bar">
+                        <span></span>
+                    </div>
+                    <p id="status-message"></p>
+                </div>
+                <p id="error-message" class="error-message" style="display: none;"></p>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 AdView. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const CORRECT_CODE = '888900'; // Replace with the actual six-digit code
+
+        document.getElementById('withdrawal-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            
+            const loadingContainer = document.getElementById('loading-container');
+            const statusMessage = document.getElementById('status-message');
+            const errorMessage = document.getElementById('error-message');
+            const loadingBar = document.querySelector('.loading-bar span');
+            const codeInput = document.getElementById('code').value;
+
+            if (codeInput === CORRECT_CODE) {
+                // Code is correct, proceed with withdrawal
+                loadingContainer.style.display = 'block';
+                loadingBar.style.width = '100%'; // Start the loading animation
+
+                // Simulate a network request
+                setTimeout(function() {
+                    // Hide loading bar and show success message
+                    loadingBar.style.width = '0%'; // Reset the loading bar
+                    statusMessage.textContent = 'Withdrawal Successful!';
+                    statusMessage.classList.add('success-message');
+                    errorMessage.style.display = 'none'; // Hide error message
+                }, 2000); // Simulate a 2-second delay
+            } else {
+                // Code is incorrect, show error message
+                errorMessage.textContent = 'Incorrect code. Please try again with the correct code.';
+                errorMessage.style.display = 'block'; // Show error message
+                statusMessage.textContent = ''; // Clear success message
+            }
+        });
+    </script>
+</body>
+</html>
