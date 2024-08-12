@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        /* CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background:linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background:linear-gradient(rgb(0, 0, 0), rgb(55, 0, 255));
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 5%;
+        }
+        .image-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>User Dashboard</h1>
+    <nav>
+        <ul>
+           
+            <li><a href="dashboard.html">Dashboard</a></li>
+            
+            <li><a href="withdrawal.html">Withdrawal</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Welcome User!</h2>
+        <h1 id="totalMoney">Total Money Collected: $0</h1>
+        <div class="image-container">
+            <button class="downloadBtn" onclick="showImage(600)">Download Image</button>
+            <button class="amountBtn" onclick="showAmount(600)">600</button>
+            <span id="image600Count">0 views</span>
+            <div id="image600" style="display: none;">
+                <img src="kip.png" alt="Image" width="400">
+                <p id="priceDisplay600"></p>
+                <p>Please solve the following: 2 + 3 = ?</p>
+                <input type="text" id="userInput600" placeholder="Enter your answer">
+                <button onclick="verifyAndAddAmount(600, 5)">Confirm</button>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <button class="downloadBtn" onclick="showImage(250)">Download Image</button>
+            <button class="amountBtn" onclick="showAmount(250)">250</button>
+            <span id="image250Count">0 views</span>
+            <div id="image250" style="display: none;">
+                <img src="kip.png" alt="Image" width="400">
+                <p id="priceDisplay250"></p>
+                <p>Please solve the following: 4 - 2= ?</p>
+                <input type="text" id="userInput250" placeholder="Enter your answer">
+                <button onclick="verifyAndAddAmount(250, 6)">Confirm</button>
+            </div>
+        </div>
+        <div class="image-container">
+          <button class="downloadBtn" onclick="showImage(400)">Download Image</button>
+          <button class="amountBtn" onclick="showAmount(400)">400</button>
+          <span id="image400Count">0 views</span>
+          <div id="image400" style="display: none;">
+              <img src="kip.png" alt="Image" width="400">
+              <p id="priceDisplay400"></p>
+              <p>Please solve the following: 3 + 3 = ?</p>
+              <input type="text" id="userInput400" placeholder="Enter your answer">
+              <button onclick="verifyAndAddAmount(400, 6)">Confirm</button>
+          </div>
+      </div>
+
+        
+
+        
+
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 AdView. All rights reserved.</p><p>perzmutatiina@gmail.com</p>
+</footer>
+
+<script>
+    var totalMoney = 0;
+    var imageViews = {
+        600: { count: 0, lastViewed: null }, // Track count and last viewed time
+        250: { count: 0, lastViewed: null },
+        400: {count:  0, lastViewed: null}
+        // Add more image IDs as needed
+    };
+
+    function showImage(price) {
+        var imageId = 'image' + price;
+
+        // Check if image has been viewed in the last 24 hours
+        if (imageViews[price].lastViewed && isWithin24Hours(imageViews[price].lastViewed)) {
+            alert('This image can only be viewed once every 24 hours.');
+            return;
+        }
+
+        document.getElementById(imageId).style.display = 'block';
+        document.querySelector('#' + imageId + ' #priceDisplay' + price).textContent = 'Price: $' + price;
+        imageViews[price].count++; // Increment view count
+        imageViews[price].lastViewed = new Date(); // Update last viewed time
+        document.getElementById('image' + price + 'Count').textContent = imageViews[price].count + ' views';
+    }
+
+    function showAmount(price) {
+        // Function not used anymore
+    }
+
+    function verifyAndAddAmount(price, expectedSum) {
+        var userInput = document.getElementById('userInput' + price).value;
+        var userInputInt = parseInt(userInput);
+
+        if (!isNaN(userInputInt) && userInputInt === expectedSum) {
+            alert('Verification successful! Adding to total money.');
+            totalMoney += price; // Add price to total money collected
+            document.getElementById('totalMoney').textContent = 'Total Money Collected: $' + totalMoney;
+            // Reset input field
+            document.getElementById('userInput' + price).value = '';
+            // Hide the image view
+            document.getElementById('image' + price).style.display = 'none';
+            // Redirect to dashboard (commented for demonstration)
+            // window.location.href = 'dashboard.html'; // Redirect to dashboard
+        } else {
+            alert('Incorrect answer. Please try again.');
+        }
+    }
+
+    function isWithin24Hours(date) {
+        var twentyFourHoursAgo = new Date();
+        twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
+        return date > twentyFourHoursAgo;
+    }
+</script>
+
+</body>
+</html>
